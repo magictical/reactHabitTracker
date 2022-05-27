@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import "./app.css";
-import AddHabit from "./components/addHabit";
-
 import Habits from "./components/habits";
 import Navbar from "./components/navbar";
-import Reset from "./components/reset";
 
 class App extends Component {
     state = {
@@ -39,13 +36,15 @@ class App extends Component {
         this.setState({ habits });
     };
 
-    // add habit
-    addHabit = (name) => {
-        const index = this.state.habits.length;
-        const habit = { id: index, name: name, count: 0 };
-        const habits = [...this.state.habits].push(habit);
+    handleAdd = (name) => {
+        const habits = [
+            ...this.state.habits,
+            { id: Date.now(), name, count: 0 },
+        ];
         this.setState({ habits });
     };
+
+    handleReset = () => {};
     render() {
         return (
             <>
@@ -55,14 +54,14 @@ class App extends Component {
                             .length
                     }
                 />
-                <AddHabit OnAddHabit={this.addHabit} />
                 <Habits
                     habits={this.state.habits}
                     OnIncrement={this.handleIncrement}
                     OnDecrement={this.handleDecrement}
                     OnDelete={this.handleDelete}
+                    OnAdd={this.handleAdd}
+                    OnReset={this.handleReset}
                 />
-                <Reset />
             </>
         );
     }
