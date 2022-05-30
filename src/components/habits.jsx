@@ -5,9 +5,13 @@ class Habits extends Component {
     handleAdd = (name) => {
         this.props.OnAdd(name);
     };
+    handleReset = () => {
+        this.props.OnReset();
+    };
     render() {
+        console.log("habits");
         return (
-            <>
+            <div>
                 <HabitAddForm OnAdd={this.handleAdd} />
                 <ul>
                     {this.props.habits.map((habit) => (
@@ -20,10 +24,10 @@ class Habits extends Component {
                         />
                     ))}
                 </ul>
-                <button className="habits-reset" onClick={this.props.onReset}>
+                <button className="habits-reset" onClick={this.handleReset}>
                     Reset All
                 </button>
-            </>
+            </div>
         );
     }
 }
