@@ -13,16 +13,27 @@ class App extends Component {
     };
 
     handleIncrement = (habit) => {
-        const habits = [...this.state.habits];
-        const index = habits.indexOf(habit);
-        habits[index].count++;
+        const habits = this.state.habits.map((item) => {
+            if (item.id === habit.id) {
+                return { ...habit, count: habit.count + 1 };
+            }
+            return item;
+        });
+        // const habits = [...this.state.habits];
+        // const index = habits.indexOf(habit);
+        // habits[index].count++;
         this.setState({ habits });
     };
     handleDecrement = (habit) => {
-        const habits = [...this.state.habits];
-        const index = habits.indexOf(habit);
-        const count = habits[index].count - 1;
-        habits[index].count = count < 0 ? 0 : count;
+        const habits = this.state.habits.map((item) => {
+            if (item.id === habit.id) {
+                return {
+                    ...habit,
+                    count: habit.count > 0 ? habit.count - 1 : 0,
+                };
+            }
+            return item;
+        });
 
         // 아래와 위는 동일 결과
         // habits[index].count < 0
@@ -46,8 +57,10 @@ class App extends Component {
 
     handleReset = () => {
         const habits = this.state.habits.map((habit) => {
-            habit.count = 0;
-            return habit;
+            if (habit.count === 0) {
+                return habit;
+            }
+            return { ...habit, count: 0 };
         });
         this.setState({ habits });
     };
