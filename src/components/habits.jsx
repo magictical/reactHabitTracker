@@ -12,7 +12,7 @@ class Habits extends Component {
         console.log("habits");
         return (
             <div>
-                <HabitAddForm OnAdd={this.handleAdd} />
+                <HabitAddForm onAdd={this.handleAdd} />
                 <ul>
                     {this.props.habits.map((habit) => (
                         <Habit
